@@ -11,6 +11,7 @@
         "/home/furkan/ros2_control_ws/install/midi_hardware/include/**",
         "/home/furkan/ros2_control_ws/install/diffdrive_arduino/include/**",
         "/home/furkan/ros2_control_ws/src/gazebo_control/include/**",
+        "/home/furkan/ros2_control_ws/src/gazebo_control/include/**",
         "/home/furkan/ros2_control_ws/src/serial/include/**",
         "/usr/include/**"
       ],
