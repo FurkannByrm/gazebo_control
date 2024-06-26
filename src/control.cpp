@@ -1,4 +1,4 @@
-#include "gazebo_control/control.hpp"
+#include "gazebo_control/pid_control.hpp"
 
 Control::Control(): Node("sub_pub_nodes"){
 
