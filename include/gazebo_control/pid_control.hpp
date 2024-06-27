@@ -25,7 +25,7 @@ public:
 
 private:
 
-//topic to be subscribed
+    //topic to be subscribed
 
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr     odom_sub_;
