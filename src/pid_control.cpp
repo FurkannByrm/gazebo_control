@@ -10,9 +10,10 @@ using namespace std::placeholders;
         RCLCPP_ERROR(this->get_logger(), "ERROR IN LOADING THE PARAMETERS.");
     }
     
+    
     //declare all the subscriber and publisher 
-    scan_sub_                       = this->create_subscription<sensor_msgs::msg::LaserScan>("/scan", 1 ,std::bind(&Control::scanCallBack, this));
-    odom_sub_                       = this->create_subscription<nav_msgs::msg::Odometry>("/odom", 1, std::bind(&Control::odomCallBack, this));
+    scan_sub_                       = this->create_subscription<sensor_msgs::msg::LaserScan>("/scan", 1 ,std::bind(&Control::scanCallBack, this,_1));
+    odom_sub_                       = this->create_subscription<nav_msgs::msg::Odometry>("/odom", 1, std::bind(&Control::odomCallBack, this, _1));
     vel_pub_                        = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 200);
     error_forward_pub_              = this->create_publisher<std_msgs::msg::Float32>("/error_forward", 1);
     error_angle_pub_                = this->create_publisher<std_msgs::msg::Float32>("/error_angle", 1);
@@ -131,68 +132,58 @@ double Control::normalizeAngle(double angle){
 
 bool Control::loadParam(){
 
-    if(!this->get_parameter_or("kp_f", kp_f,  1.0))
+    if(!this->get_parameter_or("/pid_control_node/kp_f", kp_f,  1.0))
     {
         RCLCPP_ERROR(this->get_logger(),"kp_f Load Error, Alternative value was setted..");
         return true;
     }
     
-    if(!this->get_parameter_or("ki_f", ki_f, 1.0))
+    if(!this->get_parameter_or("/pid_control_node/ki_f", ki_f, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(),"ki_f Load Error, Alternative value was setted.."  );
         return true;
     }
 
-    if(!this->get_parameter_or("kd_f",kd_f, 1.0))
+    if(!this->get_parameter_or("/pid_control_node/kd_f",kd_f, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "kd_f Load Error, Alternative value was setted..");
         return true;
     }
     
-    if (!this->get_parameter_or("kp_a", kp_a, 1.0))
+    if (!this->get_parameter_or("/pid_control_node/kp_a", kp_a, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "kp_a Load Error, Alternative value was setted..");
         return true;
     }
 
-    if(!this->get_parameter_or("ki_a",ki_a, 1.0))
+    if(!this->get_parameter_or("/pid_control_node/ki_a",ki_a, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "ki_a Load Error, Alternative value was setted..");
         return true;
     }
 
-    if (!this->get_parameter_or("kd_a", kd_a, 1.0));
+    if (!this->get_parameter_or("/pid_control_node/kd_a", kd_a, 1.0));
     {
         RCLCPP_ERROR(this->get_logger(), "kd_a Load Error, Alternative value was setted.." );
         return true;
     }
 
-    if (!this->get_parameter_or("dt",dt, 1.0))
+    if (!this->get_parameter_or("/pid_control_node/dt",dt, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "dt Load Error, Alternative value was setted..");
         return true;
     }
 
-    if (!this->get_parameter_or("target_dastance", target_distance, 1.0))
+    if (!this->get_parameter_or("/pid_control_node/target_dastance", target_distance, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(),"target_distance Load Error, Alternative value was setted..");
         return true;
     }
 
-    if (!Node::get_parameter_or("target_angle", 4))
+    if (!Node::get_parameter_or("/pid_control_node/target_angle", 4))
     {
         RCLCPP_ERROR(Node::get_logger(), "target_angle Load Error, Alternative value was setted..");
         return true;
     }
     
 }
-// #include "gazebo_control/control.hpp"
-
-// int main(int argc, char ** argv){
-
-//     rclcpp::init(argc, argv);
-//     auto node = std::make_shared<Control>("pid_control_node");
-//     rclcpp::spin(node);
-//     rclcpp::shutdown();
-
-// }

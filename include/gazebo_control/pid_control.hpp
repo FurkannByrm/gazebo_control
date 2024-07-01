@@ -21,18 +21,15 @@ public:
     double kp_f, ki_f, kd_f;
     double kp_a, ki_a, kd_a;
     Control();
-    ~Control();
+    ~Control() = default;
 
 private:
 
     //topic to be subscribed
-
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr     odom_sub_;
-
-
+    
     //topics to be published
-
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr vel_pub_;
     rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr    error_forward_pub_;
     rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr    error_angle_pub_;
