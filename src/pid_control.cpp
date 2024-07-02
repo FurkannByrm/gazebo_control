@@ -45,7 +45,7 @@ void Control::odomCallBack(const nav_msgs::msg::Odometry::ConstSharedPtr& odomMs
 void Control::scanCallBack(const sensor_msgs::msg::LaserScan::ConstSharedPtr& scanMsg){
     scan_data_ = scanMsg->ranges;
     int arr_size = scan_data_.size();
-    float smallest_dist = 100;
+    double smallest_dist = 100.0;
     for (int i = 0; i <arr_size ; i++)
     {
         if (scan_data_[i] < smallest_dist)
@@ -60,11 +60,6 @@ void Control::scanCallBack(const sensor_msgs::msg::LaserScan::ConstSharedPtr& sc
 }
 
 void Control::pidAlgorthm(){
-
-    std_msgs::msg::Float32 linear_error;
-    std_msgs::msg::Float32 angle_error;
-    std_msgs::msg::Float32 linear_velocity;
-    std_msgs::msg::Float32 angle_velocity;
 
     //update the PID-related error states
     error_forward_      = scan_range_ - target_distance;
@@ -132,58 +127,50 @@ double Control::normalizeAngle(double angle){
 
 bool Control::loadParam(){
 
-    if(!this->get_parameter_or("/pid_control_node/kp_f", kp_f,  1.0))
+    if(this->get_parameter_or("/node/kp_f", kp_f,  1.0))
     {
         RCLCPP_ERROR(this->get_logger(),"kp_f Load Error, Alternative value was setted..");
-        return true;
     }
     
-    if(!this->get_parameter_or("/pid_control_node/ki_f", ki_f, 1.0))
+    if(this->get_parameter_or("/node/ki_f", ki_f, 0.0))
     {
         RCLCPP_ERROR(this->get_logger(),"ki_f Load Error, Alternative value was setted.."  );
-        return true;
     }
 
-    if(!this->get_parameter_or("/pid_control_node/kd_f",kd_f, 1.0))
+    if(this->get_parameter_or("/node/kd_f",kd_f, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "kd_f Load Error, Alternative value was setted..");
-        return true;
     }
     
-    if (!this->get_parameter_or("/pid_control_node/kp_a", kp_a, 1.0))
+    if (this->get_parameter_or("/node/kp_a", kp_a, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "kp_a Load Error, Alternative value was setted..");
-        return true;
     }
 
-    if(!this->get_parameter_or("/pid_control_node/ki_a",ki_a, 1.0))
+    if(this->get_parameter_or("/node/ki_a",ki_a, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "ki_a Load Error, Alternative value was setted..");
-        return true;
     }
 
-    if (!this->get_parameter_or("/pid_control_node/kd_a", kd_a, 1.0));
+    if (this->get_parameter_or("/node/kd_a", kd_a, 1.0));
     {
         RCLCPP_ERROR(this->get_logger(), "kd_a Load Error, Alternative value was setted.." );
-        return true;
     }
 
-    if (!this->get_parameter_or("/pid_control_node/dt",dt, 1.0))
+    if (this->get_parameter_or("/node/dt",dt, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(), "dt Load Error, Alternative value was setted..");
-        return true;
     }
 
-    if (!this->get_parameter_or("/pid_control_node/target_dastance", target_distance, 1.0))
+    if (this->get_parameter_or("/node/target_dastance", target_distance, 1.0))
     {
         RCLCPP_ERROR(this->get_logger(),"target_distance Load Error, Alternative value was setted..");
-        return true;
     }
 
-    if (!Node::get_parameter_or("/pid_control_node/target_angle", 4))
+    if (this->get_parameter_or("/node/target_angle", target_angle_, 4.0))
     {
         RCLCPP_ERROR(Node::get_logger(), "target_angle Load Error, Alternative value was setted..");
-        return true;
     }
-    
+
+    return true;
 }

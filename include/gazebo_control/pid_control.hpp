@@ -20,11 +20,16 @@ public:
     double target_distance, target_angle_;
     double kp_f, ki_f, kd_f;
     double kp_a, ki_a, kd_a;
+
     Control();
     ~Control() = default;
 
 private:
-
+    std_msgs::msg::Float32 linear_error;
+    std_msgs::msg::Float32 angle_error;
+    std_msgs::msg::Float32 linear_velocity;
+    std_msgs::msg::Float32 angle_velocity;
+    
     //topic to be subscribed
     rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr scan_sub_;
     rclcpp::Subscription<nav_msgs::msg::Odometry>::SharedPtr     odom_sub_;
@@ -59,9 +64,6 @@ private:
 
     double normalizeAngle(double angle);
     double init_x, init_y, init_ang;
-
-
-
 
 
 

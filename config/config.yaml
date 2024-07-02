@@ -1,9 +1,11 @@
-kp_f : 0.8
-ki_f : 0.0
-kd_f : 0.02
-kp_a : 0.6
-ki_a : 0.0
-kd_a : 0.005
-target_distance : 1.1
-target_angle : 0.0
-dt : 0.1 
+node:
+  ros__parameters:
+    kp_f : 0.8
+    ki_f : 0.0
+    kd_f : 0.02
+    kp_a : 0.6
+    ki_a : 0.0
+    kd_a : 0.005
+    target_distance : 1.1
+    target_angle : 0.0
+    dt : 0.1 
