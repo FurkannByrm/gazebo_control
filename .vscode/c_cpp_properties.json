@@ -12,6 +12,7 @@
         "/home/furkan/ros2_control_ws/install/diffdrive_arduino/include/**",
         "/home/furkan/ros2_control_ws/src/gazebo_control/include/**",
         "/home/furkan/ros2_control_ws/src/serial/include/**",
+        "/home/furkan/ros2_control_ws/src/gazebo_control/hardware/include/**",
         "/usr/include/**"
       ],
       "name": "ROS",

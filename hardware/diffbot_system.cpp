@@ -1,4 +1,4 @@
-#include "ros2_control_demo_example_2/diffbot_system.hpp"
+#include "ros2_control/diffbot_system.hpp"
 
 #include <chrono>
 #include <cmath>
