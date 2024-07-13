@@ -5,6 +5,9 @@
 
   <xacro:include filename="$(find gazebo_control)/urdf/diffbot_description.urdf.xacro" />
 
+  <xacro:include filename="$(find gazebo_control)/urdf/gazebo_control.xacro" />
+
+
   <!-- Import Rviz colors -->
   <xacro:include filename="$(find gazebo_control)/urdf/diffbot.materials.xacro" />
 
