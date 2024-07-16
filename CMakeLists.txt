@@ -29,12 +29,8 @@ set(THIS_PACKAGE_INCLUDE_DEPENDS
 
 
 install(
-  DIRECTORY launch description/ros2_control description/urdf
-  DESTINATION share/gazebo_control
-)
-install(
-  DIRECTORY  launch
-  DESTINATION share/gazebo_control
+  DIRECTORY config description launch worlds
+  DESTINATION share/${PROJECT_NAME}
 )
 # install(TARGETS gazebo_control
 #   EXPORT export_gazebo_control
