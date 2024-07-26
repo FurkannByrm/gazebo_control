@@ -11,5 +11,7 @@
     "files.associations": {
         "*.cpp": "cpp",
         "functional": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.intelliSenseEngine":"default"
 }
